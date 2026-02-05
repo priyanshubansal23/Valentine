@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For My Favorite Person ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100dvh;
+            margin: 0;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .gif {
+            width: 220px;
+            max-width: 80%;
+            margin-bottom: 20px;
+            border-radius: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 16px 34px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px;
+            transition: transform 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        .love-screen {
+            position: fixed;
+            inset: 0;
+            background: #ffccd5;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #d63384;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        .love-screen p {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            color: #b02a4a;
+            text-align: center;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 24px;
+            animation: floatUp 4s linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+
+            button {
+                padding: 18px 36px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile-safe MP4 instead of GIF -->
+    <video
+        class="gif"
+        autoplay
+        loop
+        muted
+        playsinline
+    >
+        <source src="https://media.giphy.com/media/l0MYB8Ory7Hqefo9a/giphy.mp4" type="video/mp4">
+    </video>
+
+    <h1>Will you be my Valentine, Tanya? ❤️</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="sayYes()">Yes!</button>
+        <button id="noBtn" onclick="runAway()">No</button>
+    </div>
+
+    <div class="love-screen" id="loveScreen">
+        💖 Yay!!! 💖  
+        <p>You just made me the happiest person 🥰</p>
+        <p>I LOVE YOU 🥰❤️</p>
+    </div>
+
+    <script>
+        function runAway() {
+            const btn = document.getElementById("noBtn");
+            btn.classList.add("shake");
+
+            setTimeout(() => {
+                btn.classList.remove("shake");
+
+                const padding = 20;
+                const maxX = window.innerWidth - btn.offsetWidth - padding;
+                const maxY = window.innerHeight - btn.offsetHeight - padding;
+
+                const x = Math.random() * maxX;
+                const y = Math.random() * maxY;
+
+                btn.style.position = "fixed";
+                btn.style.left = x + "px";
+                btn.style.top = y + "px";
+            }, 400);
+        }
+
+        function sayYes() {
+            document.getElementById("loveScreen").style.display = "flex";
+            startHearts();
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.textContent = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.fontSize = Math.random() * 20 + 20 + "px";
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>
